@@ -1,0 +1,49 @@
+<ng-container *ngIf="userInfo$ | async as userInfo">
+  <div class="admin-topbar">
+    <div class="navbar-header">
+      <div class="cursor-pointer">
+        <span class="material-symbols-outlined"> menu </span>
+      </div>
+      <div class="dropdown ms-sm-3 header-item topbar-user" ngbDropdown>
+        <button
+          type="button"
+          class="btn shadow-none"
+          id="page-header-user-dropdown"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ngbDropdownToggle>
+          <span class="d-flex align-items-center">
+            <img
+              class="rounded-circle header-profile-user"
+              src="assets/images/default/user-default.jpg"
+              alt="Header Avatar" />
+            <span class="text-start ms-xl-2">
+              <span
+                class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"
+                >{{ userInfo.fullName }}</span
+              >
+              <span
+                class="d-none d-xl-block ms-1 text-size-x-small text-muted user-name-sub-text"
+                >Founder</span
+              >
+            </span>
+          </span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <!-- item-->
+          <a class="dropdown-item" routerLink="/pages/profile">
+            <span class="align-middle">Thông tin cá nhân</span></a
+          >
+          <a
+            class="dropdown-item"
+            href="javascript: void(0);"
+            (click)="logout()"
+            ><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
+            <span class="align-middle" data-key="t-logout">Đăng xuất</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

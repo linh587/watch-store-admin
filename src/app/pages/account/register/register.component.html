@@ -1,0 +1,152 @@
+<div class="auth-page-wrapper" style="padding-top: 100px">
+  <!-- auth page bg -->
+  <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+    <div class="bg-overlay"></div>
+
+    <div class="shape">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 1440 120">
+        <path
+          d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- auth page content -->
+  <div class="auth-page-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card mt-4">
+            <div class="card-body p-4">
+              <div class="text-center mt-2">
+                <h5 class="text-primary">Tạo tài khoản mới</h5>
+              </div>
+              <div class="p-2 mt-4">
+                <form
+                  [formGroup]="registerForm"
+                  (ngSubmit)="onRegisterFormSubmit()">
+                  <div class="mb-3">
+                    <label class="form-label" for="email">Họ và tên</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      formControlName="fullName"
+                      placeholder="Nhập họ và tên..." />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      formControlName="email"
+                      placeholder="Nhập email..." />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="email">Số điện thoại</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      formControlName="mobile"
+                      placeholder="Nhập số điện thoại..." />
+                  </div>
+                  <div class="mb-3">
+                    <div class="float-end">
+                      <a routerLink="/pass-reset/basic" class="text-muted"
+                        >Quên mật khẩu?</a
+                      >
+                    </div>
+                    <label class="form-label" for="password-input"
+                      >Mật khẩu</label
+                    >
+                    <div class="position-relative auth-pass-inputgroup mb-3">
+                      <input
+                        type="password"
+                        class="form-control pe-5"
+                        placeholder="Nhập password"
+                        id="password-input"
+                        formControlName="password" />
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <button class="btn btn-success w-100" type="submit">
+                      Đăng ký
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- end card body -->
+          </div>
+          <!-- end card -->
+
+          <div class="mt-4 text-center">
+            <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+
+            <div class="d-flex gap-2 justify-content-center">
+              <button
+                type="button"
+                class="btn btn-primary btn-icon waves-effect waves-light">
+                <i class="ri-facebook-fill fs-16"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger btn-icon waves-effect waves-light">
+                <i class="ri-google-fill fs-16"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-dark btn-icon waves-effect waves-light">
+                <i class="ri-github-fill fs-16"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-info btn-icon waves-effect waves-light">
+                <i class="ri-twitter-fill fs-16"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end auth page content -->
+
+  <div class="mt-4 text-center">
+    <p class="mb-0">
+      Bạn đã có tài khoản ?
+      <a
+        routerLink="/auth/login"
+        class="fw-semibold text-primary text-decoration-underline">
+        Đăng nhập
+      </a>
+    </p>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center">
+            <p class="mb-0 text-muted">
+              &copy; 2024 Page. Crafted with
+              <i class="mdi mdi-heart text-danger"></i> by FITHOU-Dev
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->
