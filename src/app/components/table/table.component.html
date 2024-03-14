@@ -9,7 +9,10 @@
       </thead>
       <tbody class="llist form-check-all" id="ticket-list-data">
         <ng-template [ngIf]="title !== 'quick-up'" [ngIfElse]="elseBlock">
-          <ng-container *ngFor="let d of data">
+          <ng-container
+            *ngFor="
+              let d of data | paginate : { itemsPerPage: 16, currentPage: page }
+            ">
             <!-- Main row -->
             <tr [ngClass]="d.isSelected && 'table-active'">
               <ng-container
@@ -47,11 +50,6 @@
     </table>
   </div>
 
-  <!-- SKELETON LOADING-->
-  <!-- <ng-template [ngIf]="!data">
-    <app-skeleton-table tableType="tableRealEstate"></app-skeleton-table>
-  </ng-template> -->
-
   <ng-template [ngIf]="total === 0">
     <ng-container *ngTemplateOutlet="noData"></ng-container>
   </ng-template>
@@ -67,30 +65,12 @@
   <!-- PAGINATION-->
   <div class="row justify-content-md-between align-items-md-center">
     <div class="col col-sm-6">
-      <div
-        class="dataTables_info mb-2"
-        id="tickets-table_info"
-        role="status"
-        aria-live="polite">
-        Hiển thị
-        {{ limit * (page - 1) }} tới {{ limit * (page - 1) + pageSize }} trong
-        {{ total }}
-        kết quả
-      </div>
-    </div>
-    <!-- Pagination -->
-    <div class="col col-sm-6">
       <div class="text-sm-right float-sm-end listjs-pagination">
-        <ngb-pagination
-          *ngIf="page"
-          [collectionSize]="total"
-          (pageChange)="pageChange.emit($event)"
-          [maxSize]="10"
-          [page]="page"
-          [pageSize]="limit">
-        </ngb-pagination>
+        <pagination-controls
+          (pageChange)="page = $event"
+          nextLabel="Trang sau"
+          previousLabel="Trang trước"></pagination-controls>
       </div>
     </div>
-    <!-- End Pagination -->
   </div>
 </div>

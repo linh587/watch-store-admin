@@ -106,6 +106,10 @@ export class ProdCategoryManagementComponent implements OnInit, OnDestroy {
     modal.componentInstance.listChanged.subscribe(() => this.getListCategory());
   }
 
+  public updatePage(event: any) {
+    console.log(event);
+  }
+
   ngOnDestroy(): void {
     this.subscription$ ? this.subscription$.unsubscribe() : null;
   }

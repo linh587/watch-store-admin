@@ -30,7 +30,11 @@
           </div>
         </div>
       </div>
-      <app-table [data]="categories">
+      <app-table
+        [data]="categories"
+        [pageSize]="16"
+        [limit]="16"
+        [total]="categories.length">
         <ng-template #headers>
           <ng-container *ngFor="let column of COLUMNS; trackBy: trackColumn">
             <th [ngStyle]="{ 'min-width.px': column }" scope="col">

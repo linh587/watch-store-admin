@@ -4,6 +4,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { catchError, tap, throwError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "../../../services/auth/auth.service";
+import { UserModel } from "../../../models/user.model";
 
 @Component({
   selector: "app-customer-modal",
@@ -42,7 +43,7 @@ export class CustomerModalComponent implements OnInit {
 
   public onSubmitCustomerForm() {
     if (this.customerForm.valid) {
-      const payload: any = this.customerForm.getRawValue();
+      const payload: UserModel = this.customerForm.getRawValue();
 
       this.authService
         .register(payload)

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProdCategoryModalComponent } from "./prod-category-modal/prod-category-modal.component";
 import { SharedModule } from "../../components/shared.module";
 import { RouterModule, Routes } from "@angular/router";
+import { NgxPaginationModule } from "ngx-pagination";
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     RouterModule.forChild(routes),
+    NgxPaginationModule,
   ],
   declarations: [ProdCategoryManagementComponent, ProdCategoryModalComponent],
 })

@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { AuthService } from "../../services/auth/auth.service";
 import { COLUMN_OF_CUSTOMERS } from "../../public/constants/column-of-table";
 import { BC_CUSTOMER } from "../../public/constants/bread-crumb";
+import { UserModel } from "../../models/user.model";
 
 @Component({
   selector: "app-customer-management",
@@ -14,7 +15,7 @@ import { BC_CUSTOMER } from "../../public/constants/bread-crumb";
 export class CustomerManagementComponent implements OnInit, OnDestroy {
   public breadCrumbsItem!: Array<{}>;
   public COLUMNS = COLUMN_OF_CUSTOMERS;
-  public customers: any;
+  public customers!: UserModel[];
   public subscription$!: Subscription;
 
   constructor(
@@ -32,7 +33,9 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
   }
 
   private getAllUser() {
-    this.authService.getAllUser().subscribe((res) => (this.customers = res));
+    this.authService
+      .getAllUser()
+      .subscribe((res: any) => (this.customers = res));
   }
 
   public onOpenAddModal() {

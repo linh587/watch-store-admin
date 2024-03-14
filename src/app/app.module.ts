@@ -11,6 +11,8 @@ import { PagesComponent } from "./pages/pages.component";
 import { SharedModule } from "./components/shared.module";
 import { AppInterceptor } from "./public/interceptors/app.interceptor";
 import { AppGetTokenInterceptor } from "./public/interceptors/get-token.interceptor";
+import { JwtModule } from "@auth0/angular-jwt";
+import { ErrorInterceptor } from "./public/interceptors/error.interceptor";
 
 @NgModule({
   declarations: [AppComponent, PagesComponent],
@@ -23,6 +25,11 @@ import { AppGetTokenInterceptor } from "./public/interceptors/get-token.intercep
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     SharedModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+      },
+    }),
   ],
   providers: [
     {
@@ -35,7 +42,16 @@ import { AppGetTokenInterceptor } from "./public/interceptors/get-token.intercep
       useClass: AppGetTokenInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+function tokenGetter() {
+  return localStorage.getItem("JWT_TOKEN");
+}

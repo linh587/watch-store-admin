@@ -5,34 +5,41 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { IS_CALL_API } from "../../services/http/base-http-request.service";
+import { Observable, catchError, throwError } from "rxjs";
 import { StorageService } from "../../services/storage/storage.service";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-  private readonly token: any;
-
-  constructor(private storageService: StorageService) {
-    this.token = this.storageService.get("JWT_TOKEN");
-  }
+  constructor(
+    private storageService: StorageService,
+    public authService: AuthService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!this.token) {
-      return next.handle(req);
-    } else {
-      const cloneReq = req.clone({
-        headers: req.headers
-          .set("Authorization", "Bearer" + this.token)
-          .set("enctype", "mutipart/form-data")
-          .set("Content-Type", "application/json; charset-utf-8")
-          .set("X-Request-With", "XMLHttpRequest"),
-      });
+    const token = this.getAuthToken("JWT_TOKEN");
 
-      return next.handle(cloneReq);
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
+    return next.handle(req).pipe(
+      catchError((err) => {
+        if (err.status === 401) {
+        }
+        const error = err.error.message || err.statusText;
+        return throwError(error);
+      })
+    );
+  }
+
+  private getAuthToken(token: string): string {
+    return this.storageService.get(token);
   }
 }

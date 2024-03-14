@@ -4,13 +4,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { SharedModule } from "../../components/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
-  {
-    path: "register",
-    component: RegisterComponent,
-  },
   {
     path: "login",
     component: LoginComponent,
@@ -25,6 +20,6 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [LoginComponent],
 })
 export class AccountModule {}

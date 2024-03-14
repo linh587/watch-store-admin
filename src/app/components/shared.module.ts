@@ -4,10 +4,10 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { SimplebarAngularModule } from "simplebar-angular";
-import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 import { TableComponent } from "./table/table.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
+import { NgxPaginationModule } from "ngx-pagination";
 
 const COMPONENTS = [
   HeaderComponent,
@@ -19,7 +19,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, SimplebarAngularModule, NgbPaginationModule],
+  imports: [CommonModule, SimplebarAngularModule, NgxPaginationModule],
   declarations: [COMPONENTS],
   exports: [COMPONENTS],
 })

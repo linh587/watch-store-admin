@@ -16,17 +16,15 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     private authService: AuthService,
     private storageService: StorageService
-  ) {
-    this.userInfo$ = this.authService.getUserInfo();
+  ) {}
 
-    this.userInfo$.subscribe((res) => {
-      this.authService
-        .currentUserInfo(res._id)
-        .subscribe((res) => console.log(res));
-    });
+  ngOnInit() {
+    this.getUserInfo();
   }
 
-  ngOnInit() {}
+  private getUserInfo() {
+    this.userInfo$ = this.authService.getUserInfo();
+  }
 
   public logout() {
     this.storageService.deleteAll();
