@@ -15,6 +15,8 @@ import { UserModel } from "../../../models/user.model";
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   public subscription$ = new Subject();
+  public submitted = false;
+  public fieldTextType!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -47,6 +49,8 @@ export class LoginComponent implements OnInit {
   }
 
   public onLoginFormSubmit() {
+    this.submitted = true;
+
     if (this.loginForm.valid) {
       const payload: UserModel = this.loginForm.getRawValue();
 
@@ -100,5 +104,9 @@ export class LoginComponent implements OnInit {
 
   public onCloseModal() {
     this.modalService.dismissAll();
+  }
+
+  public toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

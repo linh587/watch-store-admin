@@ -42,7 +42,6 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(CustomerModalComponent, {
       size: "lg",
       centered: true,
-      backdrop: "static",
     });
 
     modalRef.componentInstance.titleHeading = "Thêm tài khoản";

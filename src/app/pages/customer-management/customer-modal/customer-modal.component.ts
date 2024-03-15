@@ -31,8 +31,11 @@ export class CustomerModalComponent implements OnInit {
     this.customerForm = this.fb.group({
       fullName: ["", Validators.required],
       email: ["", Validators.compose([Validators.required, Validators.email])],
-      mobile: ["", Validators.required],
-      password: ["", Validators.required],
+      mobile: ["", Validators.compose([Validators.required])],
+      password: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(8)]),
+      ],
       role: ["user"],
     });
   }

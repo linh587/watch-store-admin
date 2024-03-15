@@ -130,7 +130,6 @@ export class ProdCategoryModalComponent implements OnInit {
   public onOpenConfirmModal(title?: string, content?: string) {
     const modal = this.modalService.open(ConfirmModalComponent, {
       centered: true,
-      backdrop: true,
     });
 
     modal.componentInstance.title = title;

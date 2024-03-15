@@ -8,6 +8,9 @@ import { TableComponent } from "./table/table.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { NgxPaginationModule } from "ngx-pagination";
+import { RouterModule } from "@angular/router";
+import { NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 const COMPONENTS = [
   HeaderComponent,
@@ -19,7 +22,15 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, SimplebarAngularModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    SimplebarAngularModule,
+    NgxPaginationModule,
+    RouterModule,
+    NgbNavModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   declarations: [COMPONENTS],
   exports: [COMPONENTS],
 })

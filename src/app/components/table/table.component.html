@@ -63,14 +63,10 @@
   </ng-template>
 
   <!-- PAGINATION-->
-  <div class="row justify-content-md-between align-items-md-center">
-    <div class="col col-sm-6">
-      <div class="text-sm-right float-sm-end listjs-pagination">
-        <pagination-controls
-          (pageChange)="page = $event"
-          nextLabel="Trang sau"
-          previousLabel="Trang trước"></pagination-controls>
-      </div>
-    </div>
+  <div class="text-center listjs-pagination">
+    <pagination-controls
+      (pageChange)="page = $event"
+      nextLabel="Trang sau"
+      previousLabel="Trang trước"></pagination-controls>
   </div>
 </div>

@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "text-size";
-@import "material-icons/iconfont/material-icons.css";
 @import "color";
 
 // regular style toast
@@ -190,7 +189,7 @@ input:read-only {
 }
 
 .auth-one-bg {
-  background-image: url("../src/assets/images/default/auth-one-bg.jpg");
+  // background-image: url("../src/assets/images/default/auth-one-bg.jpg");
   background-position: center;
   background-size: cover;
 
@@ -266,7 +265,7 @@ input:read-only {
   background: linear-gradient(-45deg, #002476 50%, #0ab39c);
 
   > .bg-overlay {
-    background-image: url("../src/assets/images/default/cover-pattern.png");
+    // background-image: url("../src/assets/images/default/cover-pattern.png");
     background-position: center;
     background-size: cover;
     opacity: 1;
@@ -305,4 +304,17 @@ input:read-only {
       }
     }
   }
+}
+
+.dropdown-item:active {
+  background-color: unset !important;
+  color: #000;
+}
+
+.btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  border-color: transparent;
 }

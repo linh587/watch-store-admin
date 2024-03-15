@@ -16,7 +16,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [CustomerManagementComponent, CustomerModalComponent],
 })

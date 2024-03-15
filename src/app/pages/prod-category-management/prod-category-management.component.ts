@@ -38,7 +38,6 @@ export class ProdCategoryManagementComponent implements OnInit, OnDestroy {
     const modal = this.modalService.open(ProdCategoryModalComponent, {
       size: "lg",
       centered: true,
-      backdrop: "static",
     });
 
     modal.componentInstance.headingTitle = "Thêm nhóm sản phẩm";
@@ -50,7 +49,6 @@ export class ProdCategoryManagementComponent implements OnInit, OnDestroy {
   public onOpenConfirmModal(title?: string, content?: string) {
     const modal = this.modalService.open(ConfirmModalComponent, {
       centered: true,
-      backdrop: true,
     });
 
     modal.componentInstance.title = title;
@@ -97,7 +95,6 @@ export class ProdCategoryManagementComponent implements OnInit, OnDestroy {
     const modal = this.modalService.open(ProdCategoryModalComponent, {
       size: "lg",
       centered: true,
-      backdrop: "static",
     });
 
     modal.componentInstance.categoryId = id;
