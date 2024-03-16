@@ -9,7 +9,7 @@ import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { NgxPaginationModule } from "ngx-pagination";
 import { RouterModule } from "@angular/router";
-import { NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 const COMPONENTS = [
@@ -30,6 +30,7 @@ const COMPONENTS = [
     NgbNavModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule
   ],
   declarations: [COMPONENTS],
   exports: [COMPONENTS],

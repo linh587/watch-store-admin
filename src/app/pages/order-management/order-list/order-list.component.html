@@ -1,0 +1,84 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumb
+  title="Đơn hàng"
+  [breadcrumbItems]="breadCrumbItems"></app-breadcrumb>
+<!-- End Breadcrumbs -->
+
+<div class="row" id="contactList">
+  <div class="col-lg-12">
+    <div class="card">
+      <div
+        class="card-header d-flex flex-column flex-sm-row align-items-sm-center gap-2 border-0">
+        <h5 class="card-title mb-0 flex-grow-1">Danh sách đơn hàng</h5>
+        <div class="flex-shrink-0">
+          <div class="flax-shrink-0 hstack gap-2">
+            <button class="btn btn-primary">Đơn hàng hôm nay</button>
+            <button class="btn btn-soft-info">Đơn hàng trước</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body border border-dashed border-end-0 border-start-0">
+        <div class="row g-2">
+          <div class="col-xl-4 col-md-6">
+            <div class="search-box">
+              <input
+                type="text"
+                name="searchTerm"
+                class="form-control search"
+                placeholder="Tìm kiếm đơn hàng..." />
+              <i class="ri-search-line search-icon"></i>
+            </div>
+          </div>
+          <!--end col-->
+          <div class="col-xl-2 col-md-4">
+            <select
+              class="form-control fs-14"
+              data-choices
+              data-choices-search-false
+              name="choices-single-default"
+              id="choices-single-default">
+              <option value="">Chọn loại</option>
+              <option value="Sell">Mua</option>
+              <option value="Buy">Bán</option>
+            </select>
+          </div>
+          <!--end col-->
+          <div class="col-xl-2 col-md-4">
+            <select
+              class="form-control fs-14"
+              data-choices
+              data-choices-search-false
+              name="choices-single-default2"
+              id="choices-single-default2">
+              <option value="">Chọn trạng thái</option>
+              <option value="Successful" [ngValue]="Successful">
+                Thành công
+              </option>
+              <option value="Cancelled" [ngValue]="Cancelled">Huỷ bỏ</option>
+            </select>
+          </div>
+          <!--end col-->
+          <div class="col-xl-1 col-md-4">
+            <button class="btn btn-success w-100">Lọc</button>
+          </div>
+        </div>
+        <!--end row-->
+      </div>
+      <app-table>
+        <ng-template #headers>
+          <ng-container *ngFor="let column of COLUMNS">
+            <th [ngStyle]="{ 'min-width.px': column }" scope="col">
+              {{ column }}
+            </th>
+          </ng-container>
+        </ng-template>
+        <ng-template #rows let-data let-rotateClass="rotateClass">
+          <ng-container></ng-container>
+        </ng-template>
+      </app-table>
+    </div>
+    <!--end card-->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->

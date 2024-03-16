@@ -10,8 +10,7 @@ import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm
 
 @Component({
   selector: "app-product-brand",
-  templateUrl: "./product-brand.component.html",
-  styleUrls: ["./product-brand.component.scss"],
+  templateUrl: "./product-brand.component.html"
 })
 export class ProductBrandComponent implements OnInit, OnDestroy {
   public breadCrumbsItem!: Array<{}>;

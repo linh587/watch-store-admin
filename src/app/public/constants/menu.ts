@@ -20,7 +20,7 @@ export const MENU: MenuItem[] = [
   {
     id: 4,
     label: "Quản lý sản phẩm",
-    icon: "ri-dashboard-2-line",
+    icon: "bx bxs-watch",
     subItems: [
       {
         id: 5,
@@ -44,18 +44,18 @@ export const MENU: MenuItem[] = [
   {
     id: 8,
     label: "Quản lý đơn mua",
-    icon: "ri-dashboard-2-line",
+    icon: "ri-bill-line",
     subItems: [
       {
         id: 9,
-        label: "Danh sách dơn",
-        link: "",
+        label: "Danh sách đơn",
+        link: "/order-management/orders",
         parentId: 8,
       },
       {
         id: 10,
         label: "Chi tiết đơn",
-        link: "/",
+        link: "/order-management/order-detail",
         parentId: 8,
       },
     ],
@@ -68,7 +68,7 @@ export const MENU: MenuItem[] = [
   {
     id: 12,
     label: "Quản lý tài khoản",
-    icon: "ri-dashboard-2-line",
+    icon: "ri-account-circle-line",
     subItems: [
       {
         id: 13,

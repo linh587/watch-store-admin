@@ -42,12 +42,12 @@ const routes: Routes = [
           ),
       },
       {
-        path: "product-category-management",
+        path: "order-management",
         canLoad: [AuthGuard],
         loadChildren: () =>
-          import(
-            "./pages/prod-category-management/prod-category-management.module"
-          ).then((m) => m.ProdCategoryManagementModule),
+          import("./pages/order-management/order-management.module").then(
+            (m) => m.OrderManagementModule
+          ),
       },
     ],
   },

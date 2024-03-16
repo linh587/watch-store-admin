@@ -21,3 +21,14 @@ export const COLUMN_OF_CATEGORIES: string[] = [
   "Ngày tạo",
   "Hành động",
 ];
+
+export const COLUMN_OF_ORDERS: string[] = [
+  "Date",
+  "Name",
+  "Type",
+  "Quantity",
+  "Order Value",
+  "Avg Price",
+  "Price",
+  "Status",
+];
