@@ -5,7 +5,7 @@ import { SharedModule } from "../../components/shared.module";
 import { CreateProductComponent } from "./create-product/create-product.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
-import { NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbNavModule, NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import {
   DROPZONE_CONFIG,
   DropzoneConfigInterface,
@@ -15,6 +15,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ProductBrandComponent } from "./product-brand/product-brand.component";
 import { ProductBrandModalComponent } from "./product-brand-modal/product-brand-modal.component";
 import { ProductListComponent } from "./product-list/product-list.component";
+import { ProductSizeComponent } from "./product-size/product-size.component";
+import { ProductSizeModalComponent } from "./product-size-modal/product-size-modal.component";
+import { ProductPriceComponent } from "./product-price/product-price.component";
+import { DirectivesModule } from "../../public/directives/directives.module";
 
 const routes: Routes = [
   {
@@ -31,6 +35,16 @@ const routes: Routes = [
     path: "products",
     pathMatch: "full",
     component: ProductListComponent,
+  },
+  {
+    path: "sizes",
+    pathMatch: "full",
+    component: ProductSizeComponent,
+  },
+  {
+    path: "prices",
+    pathMatch: "full",
+    component: ProductPriceComponent,
   },
 ];
 
@@ -51,12 +65,17 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgbNavModule,
     DropzoneModule,
     ReactiveFormsModule,
+    NgbTooltipModule,
+    DirectivesModule,
   ],
   declarations: [
     CreateProductComponent,
     ProductBrandComponent,
     ProductBrandModalComponent,
     ProductListComponent,
+    ProductSizeComponent,
+    ProductSizeModalComponent,
+    ProductPriceComponent,
   ],
   providers: [
     {

@@ -34,6 +34,18 @@ export const MENU: MenuItem[] = [
         link: "/product-management/products",
         parentId: 4,
       },
+      {
+        id: 15,
+        label: "Size sản phẩm",
+        link: "/product-management/sizes",
+        parentId: 4,
+      },
+      {
+        id: 16,
+        label: "Giá sản phẩm",
+        link: "/product-management/prices",
+        parentId: 4,
+      },
     ],
   },
   {

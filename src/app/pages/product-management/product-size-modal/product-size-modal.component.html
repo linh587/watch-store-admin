@@ -1,6 +1,6 @@
 <form
-  [formGroup]="categoryForm"
-  (submit)="onCreateCategory() || onUpdateCategory()">
+  [formGroup]="productSizeForm"
+  (submit)="onCreateProductSize() || onUpdateProductSize()">
   <div class="modal-content border-0">
     <div class="modal-header justify-content-between align-items-center pb-3">
       <h5 class="modal-title">{{ headingTitle }}</h5>
@@ -11,7 +11,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="form-group pb-4 col-12" required>
-          <label class="form-label">Tên nhóm sản phẩm</label>
+          <label class="form-label">Số size</label>
           <input
             type="text"
             class="form-control text-size-small"
@@ -19,7 +19,7 @@
             [class.is-invalid]="
               controls['name'].errors && controls['name'].touched
             "
-            [attr.readonly]="!isEdit && categoryId ? true : null" />
+            [attr.readonly]="!isEdit && productSizeId ? true : null" />
         </div>
       </div>
     </div>
@@ -28,20 +28,20 @@
         <button
           type="button"
           class="btn btn-danger"
-          *ngIf="isEdit && categoryId"
+          *ngIf="isEdit && productSizeId"
           (click)="onCancelChanged()">
           <span>Huỷ chỉnh sửa</span>
         </button>
         <button
           type="submit"
           class="btn btn-success ms-2"
-          *ngIf="isEdit || !categoryId"
-          (keydown.enter)="onCreateCategory() || onUpdateCategory()">
+          *ngIf="isEdit || !productSizeId"
+          (keydown.enter)="onCreateProductSize() || onUpdateProductSize()">
           Lưu
         </button>
         <button
           class="btn btn-success ms-2"
-          *ngIf="!isEdit && categoryId"
+          *ngIf="!isEdit && productSizeId"
           (click)="isEdit = !isEdit">
           Sửa
         </button>

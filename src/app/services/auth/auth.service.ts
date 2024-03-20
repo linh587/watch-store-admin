@@ -10,22 +10,18 @@ import { API_URL, ENVIRONMENT } from "../../public/constants/api-url";
 export class AuthService extends BaseHttpRequest {
   private userLogin$ = new BehaviorSubject<any>(null);
 
-  public login(payload: UserModel) {
+  public login(payload: any) {
     return this.httpClient.post(`${ENVIRONMENT}${API_URL.LOGIN}`, payload);
-  }
-
-  public register(payload: UserModel) {
-    return this.httpClient.post(`${ENVIRONMENT}${API_URL.REGISTER}`, payload);
   }
 
   public getUserInfo() {
     if (this.userLogin$.value) {
-      return this.userLogin$ as Observable<UserModel>;
+      return this.userLogin$ as Observable<any>;
     } else {
       const user = this.storageService.get("USER_LOGIN");
       this.setUserInfo(user);
 
-      return this.userLogin$ as Observable<UserModel>;
+      return this.userLogin$ as Observable<any>;
     }
   }
 
@@ -33,9 +29,9 @@ export class AuthService extends BaseHttpRequest {
     this.userLogin$.next(data);
   }
 
-  public currentUserInfo(id: string) {
+  public currentUserInfo(username: string) {
     return this.httpClient.get(
-      `${ENVIRONMENT}${API_URL.GET_DETAIL_USER}/${id}`
+      `${ENVIRONMENT}${API_URL.GET_DETAIL_USER}/${username}`
     );
   }
 

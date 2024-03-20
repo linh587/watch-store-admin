@@ -1,23 +1,23 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { BehaviorSubject, catchError, take, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, take, tap, throwError, pipe } from "rxjs";
+import { ProductService } from "../../../services/product/product.service";
 import { ToastrService } from "ngx-toastr";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
-import { ProductService } from "../../../services/product/product.service";
 
 @Component({
-  selector: "app-product-brand-modal",
-  templateUrl: "./product-brand-modal.component.html",
+  selector: "app-product-size-modal",
+  templateUrl: "./product-size-modal.component.html",
 })
-export class ProductBrandModalComponent implements OnInit {
+export class ProductSizeModalComponent implements OnInit {
   @Output() listChanged = new EventEmitter();
-  public categoryForm!: FormGroup;
+  public productSizeForm!: FormGroup;
   public headingTitle!: string;
-  public categoryId!: string;
+  public productSizeId!: string;
   public isEdit: boolean = false;
-  public categoryDetail$ = new BehaviorSubject<any>(null);
-  public categoryStorage: any;
+  public productSizeDetail$ = new BehaviorSubject<any>(null);
+  public productSizeStorage: any;
 
   constructor(
     public modalService: NgbModal,
@@ -28,15 +28,15 @@ export class ProductBrandModalComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.getCategoryDetail();
+    this.getProductSizeDetail();
   }
 
   get controls() {
-    return this.categoryForm.controls;
+    return this.productSizeForm.controls;
   }
 
   private initForm() {
-    this.categoryForm = this.fb.group({
+    this.productSizeForm = this.fb.group({
       name: [null, Validators.required],
     });
   }
@@ -45,19 +45,19 @@ export class ProductBrandModalComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  public onCreateCategory(): boolean {
-    const payload: any = this.categoryForm.getRawValue();
-    if (!this.categoryId && this.categoryForm.valid) {
+  public onCreateProductSize(): boolean {
+    const payload: any = this.productSizeForm.getRawValue();
+    if (!this.productSizeId && this.productSizeForm.valid) {
       this.productService
-        .createCategory(payload)
+        .createProductSize(payload)
         .pipe(
           tap((_) => {
             this.listChanged.emit();
-            this.toastService.success("Thêm nhóm sản phẩm thành công");
+            this.toastService.success("Thêm size sản phẩm thành công");
             this.handleCloseModal();
           }),
           catchError((error) => {
-            this.toastService.error("Thêm nhóm sản phẩm thất bại");
+            this.toastService.error("Thêm size sản phẩm thất bại");
             return throwError(() => error);
           })
         )
@@ -68,11 +68,11 @@ export class ProductBrandModalComponent implements OnInit {
     return false;
   }
 
-  public onUpdateCategory() {
-    if (this.categoryForm.valid && this.categoryId) {
-      const payload: any = this.categoryForm.getRawValue();
+  public onUpdateProductSize() {
+    if (this.productSizeForm.valid && this.productSizeId) {
+      const payload: any = this.productSizeForm.getRawValue();
       this.productService
-        .updateCategory(this.categoryId, payload)
+        .updateProductSize(this.productSizeId, payload)
         .pipe(
           tap(() => {
             this.listChanged.emit();
@@ -89,29 +89,29 @@ export class ProductBrandModalComponent implements OnInit {
     }
   }
 
-  private getCategoryDetail() {
-    if (this.categoryId) {
+  private getProductSizeDetail() {
+    if (this.productSizeId) {
       this.productService
-        .getDetailCategory(this.categoryId)
+        .getDetailProductSize(this.productSizeId)
         .pipe(
-          tap((category: any) => {
-            this.categoryForm.patchValue({ ...category });
+          tap((productSize: any) => {
+            this.productSizeForm.patchValue({ ...productSize });
           })
         )
         .subscribe((data) => {
-          this.categoryStorage = JSON.parse(JSON.stringify(data));
-          this.categoryDetail$.next(data);
+          this.productSizeStorage = JSON.parse(JSON.stringify(data));
+          this.productSizeDetail$.next(data);
         });
     }
   }
 
-  public resetCategory() {
-    this.categoryForm.reset();
-    this.categoryForm.patchValue(
-      { ...this.categoryStorage },
+  public resetProductSize() {
+    this.productSizeForm.reset();
+    this.productSizeForm.patchValue(
+      { ...this.productSizeStorage },
       { emitEvent: false }
     );
-    this.categoryDetail$.next(this.categoryStorage);
+    this.productSizeDetail$.next(this.productSizeStorage);
   }
 
   public onCancelChanged() {
@@ -120,7 +120,7 @@ export class ProductBrandModalComponent implements OnInit {
         take(1),
         tap((state: boolean) => {
           this.isEdit = !state;
-          state && this.resetCategory();
+          state && this.resetProductSize();
         })
       )
       .subscribe();

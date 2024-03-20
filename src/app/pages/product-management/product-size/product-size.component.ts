@@ -1,21 +1,20 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subscription, catchError, tap, throwError } from "rxjs";
-import { ToastrService } from "ngx-toastr";
-import { COLUMN_OF_CATEGORIES } from "../../../public/constants/column-of-table";
+import { COLUMN_OF_SIZE } from "../../../public/constants/column-of-table";
 import { ProductService } from "../../../services/product/product.service";
-import { BC_PRODUCT } from "../../../public/constants/bread-crumb";
-import { ProductBrandModalComponent } from "../product-brand-modal/product-brand-modal.component";
+import { Subscription, catchError, tap, throwError } from "rxjs";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
+import { ProductSizeModalComponent } from "../product-size-modal/product-size-modal.component";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
 
 @Component({
-  selector: "app-product-brand",
-  templateUrl: "./product-brand.component.html",
+  selector: "app-product-size",
+  templateUrl: "./product-size.component.html",
 })
-export class ProductBrandComponent implements OnInit, OnDestroy {
+export class ProductSizeComponent implements OnInit, OnDestroy {
   public breadCrumbsItem!: Array<{}>;
-  public categories: any[] = [];
-  public COLUMNS = COLUMN_OF_CATEGORIES;
+  public sizes: any;
+  public COLUMNS = COLUMN_OF_SIZE;
   public subscription$!: Subscription;
 
   constructor(
@@ -25,8 +24,7 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.breadCrumbsItem = BC_PRODUCT;
-    this.getListCategory();
+    this.getListProductSize();
   }
 
   public trackColumn(index: number, column: any) {
@@ -34,14 +32,14 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
   }
 
   public onOpenAddModal() {
-    const modal = this.modalService.open(ProductBrandModalComponent, {
+    const modal = this.modalService.open(ProductSizeModalComponent, {
       size: "lg",
       centered: true,
     });
 
-    modal.componentInstance.headingTitle = "Thêm nhóm sản phẩm";
+    modal.componentInstance.headingTitle = "Thêm size sản phẩm";
     this.subscription$ = modal.componentInstance.listChanged.subscribe(() =>
-      this.getListCategory()
+      this.getListProductSize()
     );
   }
 
@@ -56,22 +54,22 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
     return modal;
   }
 
-  public onDeleteCategory(id: string) {
+  public onDeleteProductSize(id: string) {
     this.onOpenConfirmModal(
       "Xoá nhóm sản phẩm",
       "Bạn có chắc chắn muốn xoá nhóm sản phẩm này ra khỏi hệ thống?"
     )
       .closed.pipe(
         tap((state: boolean) => {
-          state && this.handleDeleteCategory(id);
+          state && this.handleDeleteProductSize(id);
         })
       )
       .subscribe();
   }
 
-  public handleDeleteCategory(id: string) {
+  public handleDeleteProductSize(id: string) {
     this.productService
-      .deleteCategory(id)
+      .deleteProductSize(id)
       .pipe(
         tap(
           () => this.toastService.success("Xoá thành công"),
@@ -81,25 +79,27 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
           })
         )
       )
-      .subscribe(() => this.getListCategory());
+      .subscribe(() => this.getListProductSize());
   }
 
-  public getListCategory() {
-    this.productService.getAllCategories().subscribe((res: any) => {
-      this.categories = res;
+  public getListProductSize() {
+    this.productService.getProductSize().subscribe((res: any) => {
+      this.sizes = res;
     });
   }
 
   public onOpenEditModal(id: string) {
-    const modal = this.modalService.open(ProductBrandModalComponent, {
+    const modal = this.modalService.open(ProductSizeModalComponent, {
       size: "lg",
       centered: true,
     });
 
-    modal.componentInstance.categoryId = id;
-    modal.componentInstance.headingTitle = "Sửa nhóm sản phẩm";
+    modal.componentInstance.productSizeId = id;
+    modal.componentInstance.headingTitle = "Sửa size sản phẩm";
 
-    modal.componentInstance.listChanged.subscribe(() => this.getListCategory());
+    modal.componentInstance.listChanged.subscribe(() =>
+      this.getListProductSize()
+    );
   }
 
   ngOnDestroy(): void {

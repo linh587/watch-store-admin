@@ -46,10 +46,7 @@
         <ng-template #rows let-data let-rotateClass="rotateClass">
           <ng-container>
             <td>
-              {{ data.title }}
-            </td>
-            <td>
-              {{ data.createdAt | date }}
+              {{ data.name }}
             </td>
             <td>
               <span>
@@ -63,13 +60,9 @@
                     <i class="ri-more-fill"></i>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                    <li class="dropdown-item">
-                      <i class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                      <span class="fs-14">Chi tiết</span>
-                    </li>
                     <li
                       class="dropdown-item cursor-pointer"
-                      (click)="onOpenEditModal(data._id)">
+                      (click)="onOpenEditModal(data.id)">
                       <i
                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14">Sửa</span>
@@ -77,7 +70,7 @@
                     <li class="dropdown-divider"></li>
                     <li
                       class="dropdown-item cursor-pointer"
-                      (click)="onDeleteCategory(data._id)">
+                      (click)="onDeleteCategory(data.id)">
                       <i
                         class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14"> Xoá</span>

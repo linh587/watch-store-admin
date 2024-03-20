@@ -37,10 +37,7 @@ export class LoginComponent implements OnInit {
 
   private initForm() {
     this.loginForm = this.fb.group({
-      email: [
-        null,
-        Validators.compose([Validators.required, Validators.email]),
-      ],
+      username: [null, Validators.compose([Validators.required])],
       password: [
         null,
         Validators.compose([Validators.required, Validators.minLength(8)]),
@@ -59,9 +56,9 @@ export class LoginComponent implements OnInit {
         .pipe(
           tap((data: any) => {
             this.storageService.set("AUTH_USER", data);
-            this.storageService.set("JWT_TOKEN", data.token);
+            this.storageService.set("JWT_TOKEN", data.accessToken);
             this.handleLoginSuccess();
-            this.getCurrentUserLogin(data._id);
+            this.getCurrentUserLogin(data.username);
           }),
           catchError((error) => {
             if (error.status === 400) {
@@ -82,9 +79,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private getCurrentUserLogin(id: string): void {
+  private getCurrentUserLogin(username: string): void {
     this.authService
-      .currentUserInfo(id)
+      .currentUserInfo(username)
       .pipe(
         tap((data: any) => {
           this.storageService.set("USER_LOGIN", { ...data });

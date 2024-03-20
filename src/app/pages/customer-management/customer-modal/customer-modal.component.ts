@@ -45,23 +45,22 @@ export class CustomerModalComponent implements OnInit {
   }
 
   public onSubmitCustomerForm() {
-    if (this.customerForm.valid) {
-      const payload: UserModel = this.customerForm.getRawValue();
-
-      this.authService
-        .register(payload)
-        .pipe(
-          tap(() => {
-            this.listChanged.emit();
-            this.handleRegisterSuccess();
-          }),
-          catchError((error) => {
-            this.toastService.error("Thêm tài khoản thất bại!");
-            return throwError(() => error);
-          })
-        )
-        .subscribe((_) => {});
-    }
+    // if (this.customerForm.valid) {
+    //   const payload: UserModel = this.customerForm.getRawValue();
+    //   this.authService
+    //     .register(payload)
+    //     .pipe(
+    //       tap(() => {
+    //         this.listChanged.emit();
+    //         this.handleRegisterSuccess();
+    //       }),
+    //       catchError((error) => {
+    //         this.toastService.error("Thêm tài khoản thất bại!");
+    //         return throwError(() => error);
+    //       })
+    //     )
+    //     .subscribe((_) => {});
+    // }
   }
 
   private handleRegisterSuccess() {

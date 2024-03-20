@@ -4,30 +4,24 @@
   [breadcrumbItems]="breadCrumbItems"></app-breadcrumb>
 <!-- End Breadcrumbs -->
 
-<div class="row">
-  <div class="col-lg-8">
-    <form>
+<form [formGroup]="productForm" (submit)="onCreateProduct(productForm.value)">
+  <div class="row">
+    <div class="col-lg-8">
       <div class="card">
         <div class="card-body">
           <div class="mb-3">
             <label class="form-label" for="product-title-input"
               >Tên sản phẩm</label
             >
-            <input type="text" class="form-control" id="product-title-input" />
+            <input
+              type="text"
+              class="form-control"
+              id="product-title-input"
+              formControlName="name" />
           </div>
           <div>
             <label>Mô tả</label>
-            <ckeditor
-              [editor]="Editor"
-              data="
-                        <p>Tommy Hilfiger men striped pink sweatshirt. Crafted with cotton. Material composition is 100% organic cotton. This is one of the world’s leading designer lifestyle brands and is internationally recognized for celebrating the essence of classic American cool style, featuring preppy with a twist designs.</p>
-                        <ul>
-                          <li>Full Sleeve</li>
-                          <li>Cotton</li>
-                          <li>All Sizes available</li>
-                          <li>4 Different Color</li>
-                        </ul>
-                        ">
+            <ckeditor [editor]="Editor" formControlName="description">
             </ckeditor>
           </div>
         </div>
@@ -36,7 +30,7 @@
 
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title mb-0">Upload ảnh</h5>
+          <h5 class="card-title mb-0 fs-14">Upload ảnh</h5>
         </div>
         <div class="card-body">
           <div class="mb-4">
@@ -50,8 +44,7 @@
           <div>
             <h5 class="fs-14 mb-1"></h5>
             <p class="text-muted">Ảnh slide</p>
-            <dropzone class="dropzone_sec"></dropzone>
-            <!-- end dropzon-preview -->
+            <!-- <dropzone class="dropzone_sec"></dropzone> -->
           </div>
         </div>
       </div>
@@ -60,195 +53,81 @@
       <div class="text-end mb-3">
         <button type="submit" class="btn btn-success w-sm">Tạo sản phẩm</button>
       </div>
-    </form>
-  </div>
-  <!-- end col -->
+    </div>
+    <!-- end col -->
 
-  <div class="col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title mb-0">Trạng thái</h5>
-      </div>
-      <div class="card-body">
-        <div>
-          <select
-            class="form-select"
-            id="choices-publish-visibility-input"
-            data-choices
-            data-choices-search-false>
-            <option value="Public" selected>Hiển thị</option>
-            <option value="Hidden">Ẩn</option>
-          </select>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0 fs-14">Trạng thái</h5>
         </div>
-      </div>
-      <!-- end card body -->
-    </div>
-    <!-- end card -->
-
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title mb-0">Nhóm sản phẩm</h5>
-      </div>
-      <div class="card-body">
-        <p class="text-muted mb-2">Chọn nhóm sản phẩm</p>
-        <select
-          class="form-select"
-          name="choices-category-input"
-          data-choices
-          data-choices-search-false>
-          <option value="All">All</option>
-          <option value="Appliances">Appliances</option>
-          <option value="Fashion" selected>Fashion</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Grocery">Grocery</option>
-          <option value="Home & Furniture">Home & Furniture</option>
-          <option value="Kids">Kids</option>
-          <option value="Mobiles">Mobiles</option>
-        </select>
-      </div>
-      <!-- end card body -->
-    </div>
-    <!-- end card -->
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title mb-0">Từ khoá liên kết</h5>
-      </div>
-      <div class="card-body">
-        <div class="hstack gap-3 align-items-start">
-          <div class="flex-grow-1">
-            <ng-select [items]="selectValue" [multiple]="true"></ng-select>
+        <div class="card-body">
+          <div>
+            <select
+              class="form-select text-size-small"
+              id="choices-publish-visibility-input"
+              data-choices
+              data-choices-search-false>
+              <option value="show" selected>Hiển thị</option>
+              <option value="hide">Ẩn</option>
+            </select>
           </div>
         </div>
+        <!-- end card body -->
       </div>
-      <!-- end card body -->
-    </div>
-    <!-- end card -->
-    <div class="card">
-      <div class="card-header p-3">
-        <ul
-          ngbNav
-          #customNav="ngbNav"
-          [activeId]="1"
-          class="nav nav-tabs-custom card-header-tabs border-bottom-0"
-          role="tablist">
-          <li [ngbNavItem]="1" class="nav-item">
-            <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
-              Thông tin cơ bản
-            </a>
-            <ng-template ngbNavContent>
-              <div
-                class="tab-pane active"
-                id="addproduct-general-info"
-                role="tabpanel">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="mb-3">
-                      <label class="form-label" for="quantity">Số lượng</label>
-                      <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        class="form-control"
-                        id="quantity" />
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="mb-3">
-                      <label class="form-label" for="product-price-input"
-                        >Giá</label
-                      >
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="product-price-addon"
-                          >VNĐ</span
-                        >
-                        <input
-                          type="number"
-                          min="0"
-                          class="form-control"
-                          id="product-price-input" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="mb-3">
-                      <label class="form-label" for="product-discount-input"
-                        >Khuyến mãi</label
-                      >
-                      <div class="input-group mb-3">
-                        <span
-                          class="input-group-text"
-                          id="product-discount-addon"
-                          >%</span
-                        >
-                        <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          class="form-control"
-                          id="product-discount-input" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- end row -->
-              </div>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2" class="nav-item">
-            <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
-              Meta
-            </a>
-            <ng-template ngbNavContent>
-              <div class="tab-pane" id="addproduct-metadata" role="tabpanel">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="mb-3">
-                      <label class="form-label" for="meta-title-input"
-                        >Tên</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="meta-title-input" />
-                    </div>
-                  </div>
-                  <!-- end col -->
+      <!-- end card -->
 
-                  <div class="col-lg-6">
-                    <div class="mb-3">
-                      <label class="form-label" for="meta-keywords-input"
-                        >Keywords</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="meta-keywords-input" />
-                    </div>
-                  </div>
-                  <!-- end col -->
-                </div>
-                <!-- end row -->
-
-                <div>
-                  <label class="form-label" for="meta-description-input"
-                    >Mô tả</label
-                  >
-                  <textarea
-                    class="form-control"
-                    id="meta-description-input"
-                    rows="3"></textarea>
-                </div>
-              </div>
-            </ng-template>
-          </li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content pt-4">
-          <div [ngbNavOutlet]="customNav"></div>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0 fs-14">Nhóm sản phẩm</h5>
         </div>
+        <div class="card-body">
+          <p class="text-muted mb-2">Chọn nhóm sản phẩm</p>
+          <select
+            formControlName="categoryId"
+            class="form-select text-size-small"
+            name="choices-category-input"
+            data-choices
+            data-choices-search-false>
+            <ng-container *ngFor="let category of categories">
+              <option [value]="category.id">{{ category.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+        <!-- end card body -->
       </div>
-      <!-- end card header -->
+      <!-- end card -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0 fs-14">Chọn size sản phẩm</h5>
+        </div>
+        <div class="card-body">
+          <div class="hstack gap-3 align-items-start">
+            <select
+              formControlName="productSizeId"
+              class="form-select text-size-small"
+              name="choices-category-input"
+              data-choices
+              data-choices-search-false>
+              <ng-container *ngFor="let productSize of productSizes">
+                <option [value]="productSize.id">{{ productSize.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <!-- end card body -->
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0 fs-14">Giá sản phẩm</h5>
+        </div>
+        <div class="card-body">
+          <input type="number" formControlName="price" class="form-control" />
+        </div>
+        <!-- end card body -->
+      </div>
     </div>
   </div>
-</div>
+</form>
+
 <!-- end row -->
