@@ -5,6 +5,10 @@ import { Router } from "@angular/router";
 import { BC_PRODUCT } from "../../../public/constants/bread-crumb";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
 import { ProductService } from "../../../services/product/product.service";
+import {
+  createCloudinaryThumb,
+  createCloudinaryThumbLink,
+} from "../../../public/helpers/images";
 
 @Component({
   selector: "app-product-list",
@@ -15,6 +19,7 @@ export class ProductListComponent implements OnInit {
   public breadCrumbsItem!: Array<{}>;
   public COLUMNS = COLUMN_OF_PRODUCTS;
   public products: any[] = [];
+  public createCloudinaryThumbLink = createCloudinaryThumbLink;
 
   constructor(
     public modalService: NgbModal,

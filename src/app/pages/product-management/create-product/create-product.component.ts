@@ -4,6 +4,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ProductService } from "../../../services/product/product.service";
 import { catchError, tap, throwError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
+import { DropzoneConfigInterface } from "ngx-dropzone-wrapper";
 
 @Component({
   selector: "app-create-product",
@@ -11,12 +12,21 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./create-product.component.scss"],
 })
 export class CreateProductComponent implements OnInit {
-  public selectValue = ["Choice 1", "Choice 2", "Choice 3"];
   public breadCrumbItems!: Array<{}>;
   public Editor = ClassicEditor;
   public productForm!: FormGroup;
   public categories: any[] = [];
   public productSizes: any[] = [];
+  public selectedProductSize: any[] = [];
+  public priceInput: any[] = [];
+  public priceInformationJsons: any[] = [];
+  public productId!: string;
+
+  public config: DropzoneConfigInterface = {
+    url: "https://httpbin.org/post",
+    maxFilesize: 50,
+    acceptedFiles: "image/*",
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +38,10 @@ export class CreateProductComponent implements OnInit {
     this.initForm();
     this.getAllCategory();
     this.getAllProductSize();
+    this.getBreadCrumb();
+  }
+
+  private getBreadCrumb() {
     this.breadCrumbItems = [{ label: "Thêm sản phẩm" }];
   }
 
@@ -37,19 +51,7 @@ export class CreateProductComponent implements OnInit {
       description: ["", Validators.required],
       status: ["show"],
       categoryId: ["", Validators.required],
-      coverImage: [
-        "https://img.ws.mms.shopee.vn/8b296f7ea5efdd5f3e5361953c565c22",
-        Validators.required,
-      ],
-      images: [
-        [
-          "https://img.ws.mms.shopee.vn/8b296f7ea5efdd5f3e5361953c565c22",
-          "https://img.ws.mms.shopee.vn/8b296f7ea5efdd5f3e5361953c565c22",
-        ],
-        Validators.required,
-      ],
-      productSizeId: ["", Validators.required],
-      price: [null, Validators.required],
+      coverImageFile: ["", Validators.required],
     });
   }
 
@@ -65,14 +67,20 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
-  public onCreateProduct(formValue: any) {
-    const priceInformationJsons = JSON.stringify({
-      productSizeId: formValue.productSizeId,
-      price: formValue.price,
-    });
+  public uploadCoverImage(event: any) {
+    const fileInput = event.target as HTMLInputElement;
+    if (!fileInput || !fileInput.files || fileInput.files.length <= 0) {
+      return;
+    }
+    const imageFile = fileInput.files[0];
+
+    this.productForm.controls["coverImageFile"].setValue(imageFile);
+  }
+
+  public onCreateProduct() {
     const formData: any = new FormData();
 
-    if (this.productForm.valid) {
+    if (this.productForm.valid && this.priceInformationJsons.length) {
       formData.append("name", this.productForm.get("name")?.value);
       formData.append(
         "description",
@@ -80,9 +88,14 @@ export class CreateProductComponent implements OnInit {
       );
       formData.append("status", this.productForm.get("status")?.value);
       formData.append("categoryId", this.productForm.get("categoryId")?.value);
-      formData.append("coverImage", this.productForm.get("coverImage")?.value);
-      formData.append("images", this.productForm.get("images")?.value);
-      formData.append("priceInformationJsons", priceInformationJsons);
+      formData.append(
+        "coverImageFile",
+        this.productForm.get("coverImageFile")?.value
+      );
+
+      this.priceInformationJsons.forEach((p) => {
+        formData.append("priceInformationJsons", JSON.stringify(p));
+      });
 
       this.productService
         .createProduct(formData)
@@ -90,6 +103,9 @@ export class CreateProductComponent implements OnInit {
           tap((_) => {
             this.toastService.success("Thêm sản phẩm thành công");
             this.productForm.reset();
+            this.priceInformationJsons = [];
+            this.selectedProductSize = [];
+            this.priceInput = [];
           }),
           catchError((error) => {
             this.toastService.error("Thêm sản phẩm thất bại");
@@ -97,6 +113,44 @@ export class CreateProductComponent implements OnInit {
           })
         )
         .subscribe();
+    }
+  }
+
+  public onHandleChecked(event: any, productSizeId: string) {
+    if (event.target.checked) {
+      this.selectedProductSize.push(productSizeId);
+    } else {
+      const index = this.selectedProductSize.indexOf(productSizeId);
+      if (index !== -1) {
+        this.selectedProductSize.splice(index, 1);
+        const objIndex = this.priceInformationJsons.findIndex(
+          (item) => item.productSizeId === productSizeId
+        );
+        if (objIndex !== -1) {
+          this.priceInformationJsons.splice(objIndex, 1);
+        }
+      }
+    }
+  }
+
+  public isChecked(productSizeId: string): boolean {
+    return this.selectedProductSize.includes(productSizeId);
+  }
+
+  public onHandlePriceInput(event: any, productSizeId: string) {
+    const priceInputValue = parseFloat(event.target.value);
+
+    const existingIndex = this.priceInformationJsons.findIndex(
+      (item) => item.productSizeId === productSizeId
+    );
+
+    if (existingIndex !== -1) {
+      this.priceInformationJsons[existingIndex].price = priceInputValue;
+    } else {
+      this.priceInformationJsons.push({
+        productSizeId: productSizeId,
+        price: priceInputValue,
+      });
     }
   }
 }

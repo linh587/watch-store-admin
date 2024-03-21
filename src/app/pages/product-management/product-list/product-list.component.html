@@ -44,7 +44,7 @@
             </td>
             <td style="width: 100px; height: 100px">
               <img
-                [src]="data?.coverImage || '/assets/images/products/img-7.png'"
+                [src]="createCloudinaryThumbLink(data?.coverImage)"
                 alt=""
                 class="w-100 h-100" />
             </td>

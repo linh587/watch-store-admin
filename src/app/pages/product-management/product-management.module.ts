@@ -11,7 +11,7 @@ import {
   DropzoneConfigInterface,
   DropzoneModule,
 } from "ngx-dropzone-wrapper";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProductBrandComponent } from "./product-brand/product-brand.component";
 import { ProductBrandModalComponent } from "./product-brand-modal/product-brand-modal.component";
 import { ProductListComponent } from "./product-list/product-list.component";
@@ -23,6 +23,11 @@ import { DirectivesModule } from "../../public/directives/directives.module";
 const routes: Routes = [
   {
     path: "create-product",
+    pathMatch: "full",
+    component: CreateProductComponent,
+  },
+  {
+    path: "update-product/:productId",
     pathMatch: "full",
     component: CreateProductComponent,
   },
@@ -66,6 +71,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DropzoneModule,
     ReactiveFormsModule,
     NgbTooltipModule,
+    FormsModule,
     DirectivesModule,
   ],
   declarations: [

@@ -14,6 +14,7 @@ import { AppGetTokenInterceptor } from "./public/interceptors/get-token.intercep
 import { JwtModule } from "@auth0/angular-jwt";
 import { ErrorInterceptor } from "./public/interceptors/error.interceptor";
 import { CloudinaryModule } from "@cloudinary/ng";
+import { DROPZONE_CONFIG, DropzoneConfigInterface } from "ngx-dropzone-wrapper";
 
 @NgModule({
   declarations: [AppComponent, PagesComponent],

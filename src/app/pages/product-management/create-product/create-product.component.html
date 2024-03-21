@@ -4,7 +4,7 @@
   [breadcrumbItems]="breadCrumbItems"></app-breadcrumb>
 <!-- End Breadcrumbs -->
 
-<form [formGroup]="productForm" (submit)="onCreateProduct(productForm.value)">
+<form [formGroup]="productForm" (submit)="onCreateProduct()">
   <div class="row">
     <div class="col-lg-8">
       <div class="card">
@@ -36,6 +36,7 @@
           <div class="mb-4">
             <h5 class="fs-14 mb-1">Ảnh chính</h5>
             <input
+              (change)="uploadCoverImage($event)"
               class="form-control"
               id="product-image-input"
               type="file"
@@ -44,7 +45,7 @@
           <div>
             <h5 class="fs-14 mb-1"></h5>
             <p class="text-muted">Ảnh slide</p>
-            <!-- <dropzone class="dropzone_sec"></dropzone> -->
+            <dropzone [config]="config" class="dropzone_sec"></dropzone>
           </div>
         </div>
       </div>
@@ -99,30 +100,31 @@
       <!-- end card -->
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title mb-0 fs-14">Chọn size sản phẩm</h5>
+          <h5 class="card-title mb-0 fs-14">Chọn size và giá</h5>
         </div>
         <div class="card-body">
-          <div class="hstack gap-3 align-items-start">
-            <select
-              formControlName="productSizeId"
-              class="form-select text-size-small"
-              name="choices-category-input"
-              data-choices
-              data-choices-search-false>
-              <ng-container *ngFor="let productSize of productSizes">
-                <option [value]="productSize.id">{{ productSize.name }}</option>
-              </ng-container>
-            </select>
-          </div>
-        </div>
-        <!-- end card body -->
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title mb-0 fs-14">Giá sản phẩm</h5>
-        </div>
-        <div class="card-body">
-          <input type="number" formControlName="price" class="form-control" />
+          <ng-container *ngFor="let productSize of productSizes">
+            <div class="form-group d-flex align-items-center py-2">
+              <div class="d-flex align-items-center w-25">
+                <input
+                  class="form-check me-2"
+                  type="checkbox"
+                  [checked]="selectedProductSize.includes(productSize.id)"
+                  (change)="onHandleChecked($event, productSize.id)" />
+                <label class="form-check-label">{{ productSize.name }}</label>
+              </div>
+              <div
+                class="form-group price-input"
+                *ngIf="isChecked(productSize.id)">
+                <input
+                  class="me-1 border py-1 px-2"
+                  type="number"
+                  min="0"
+                  (change)="onHandlePriceInput($event, productSize.id)" />
+                <span>VNĐ</span>
+              </div>
+            </div>
+          </ng-container>
         </div>
         <!-- end card body -->
       </div>
