@@ -6,13 +6,12 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthService } from "../../../services/auth/auth.service";
 import { StorageService } from "../../../services/storage/storage.service";
 import { Router } from "@angular/router";
-import { UserModel } from "../../../models/user.model";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
+  selector: "app-login-staff",
+  templateUrl: "./login-staff.component.html",
 })
-export class LoginComponent implements OnInit {
+export class LoginStaffComponent implements OnInit {
   public loginForm!: FormGroup;
   public subscription$ = new Subject();
   public submitted = false;
@@ -37,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   private initForm() {
     this.loginForm = this.fb.group({
-      username: [null, Validators.compose([Validators.required])],
+      phone: [null, Validators.compose([Validators.required])],
       password: [
         null,
         Validators.compose([Validators.required, Validators.minLength(8)]),
@@ -49,16 +48,14 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.valid) {
-      const payload: UserModel = this.loginForm.getRawValue();
+      const payload: any = this.loginForm.getRawValue();
 
       this.authService
-        .login(payload)
+        .loginStaff(payload)
         .pipe(
           tap((data: any) => {
-            this.storageService.set("AUTH_USER", data);
-            this.storageService.set("JWT_TOKEN", data.accessToken);
-            this.handleLoginSuccess();
-            this.getCurrentUserLogin(data.username);
+            this.handleLoginSuccess(data);
+            this.getCurrentUserLogin();
           }),
           catchError((error) => {
             if (error.status === 400) {
@@ -68,7 +65,7 @@ export class LoginComponent implements OnInit {
               );
             } else {
               this.toastService.warning(
-                "Tài khoản của bạn không phải là admin!",
+                "Tài khoản của bạn không phải là nhân viên!",
                 "Cảnh báo!"
               );
             }
@@ -79,9 +76,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private getCurrentUserLogin(username: string): void {
+  private getCurrentUserLogin(): void {
     this.authService
-      .currentUserInfo(username)
+      .getCurrentStaff()
       .pipe(
         tap((data: any) => {
           this.storageService.set("USER_LOGIN", { ...data });
@@ -91,7 +88,10 @@ export class LoginComponent implements OnInit {
       .subscribe();
   }
 
-  private handleLoginSuccess(): void {
+  private handleLoginSuccess(data: any): void {
+    this.storageService.set("AUTH_USER", data);
+    this.storageService.set("JWT_TOKEN", data.accessToken);
+    this.storageService.set("ROLE", "staff");
     this.toastService.success(
       "Chào mừng quay trở lại hệ thống.😎",
       "Đăng nhập thành công"

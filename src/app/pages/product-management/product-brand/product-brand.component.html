@@ -22,7 +22,8 @@
           </div>
           <div
             class="col-sm-auto justify-content-sm-end"
-            (click)="onOpenAddModal()">
+            (click)="onOpenAddModal()"
+            *ngIf="role === 'admin'">
             <button class="btn btn-success add-btn">
               <i class="ri-add-line align-bottom"></i>
               <span class="fs-14 ms-2">Thêm</span>
@@ -61,6 +62,7 @@
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                     <li
+                      [class.not-allowed]="role === 'staff'"
                       class="dropdown-item cursor-pointer"
                       (click)="onOpenEditModal(data.id)">
                       <i
@@ -69,6 +71,7 @@
                     </li>
                     <li class="dropdown-divider"></li>
                     <li
+                      [class.not-allowed]="role === 'staff'"
                       class="dropdown-item cursor-pointer"
                       (click)="onDeleteCategory(data.id)">
                       <i

@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { catchError, tap, throwError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "../../../services/auth/auth.service";
-import { UserModel } from "../../../models/user.model";
 
 @Component({
   selector: "app-customer-modal",

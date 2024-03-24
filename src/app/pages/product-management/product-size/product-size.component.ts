@@ -6,6 +6,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ProductSizeModalComponent } from "../product-size-modal/product-size-modal.component";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
+import { AuthService } from "../../../services/auth/auth.service";
 
 @Component({
   selector: "app-product-size",
@@ -16,15 +17,18 @@ export class ProductSizeComponent implements OnInit, OnDestroy {
   public sizes: any;
   public COLUMNS = COLUMN_OF_SIZE;
   public subscription$!: Subscription;
+  public role!: string;
 
   constructor(
     public modalService: NgbModal,
     private productService: ProductService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.getListProductSize();
+    this.role = this.authService.getRole();
   }
 
   public trackColumn(index: number, column: any) {

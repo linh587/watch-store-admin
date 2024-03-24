@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { MENU } from "../../public/constants/menu";
 import { MenuItem } from "../../models/menu.model";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
   selector: "app-sidebar",
@@ -11,11 +12,13 @@ export class SidebarComponent implements OnInit {
   public toggle: any = true;
   public menuItems: MenuItem[] = [];
   @Output() mobileMenuButtonClicked = new EventEmitter();
+  public role!: string;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.menuItems = MENU;
+    this.role = this.authService.getRole();
   }
 
   ngAfterViewInit() {

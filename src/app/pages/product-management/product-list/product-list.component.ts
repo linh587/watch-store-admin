@@ -6,6 +6,7 @@ import { BC_PRODUCT } from "../../../public/constants/bread-crumb";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
 import { ProductService } from "../../../services/product/product.service";
 import { createCloudinaryThumbLink } from "../../../public/helpers/images";
+import { AuthService } from "../../../services/auth/auth.service";
 
 @Component({
   selector: "app-product-list",
@@ -17,16 +18,19 @@ export class ProductListComponent implements OnInit {
   public COLUMNS = COLUMN_OF_PRODUCTS;
   public products: any[] = [];
   public createCloudinaryThumbLink = createCloudinaryThumbLink;
+  public role!: string;
 
   constructor(
     public modalService: NgbModal,
     public router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.breadCrumbsItem = BC_PRODUCT;
     this.getListProduct();
+    this.role = this.authService.getRole();
   }
 
   public trackColumn(index: number, column: any) {

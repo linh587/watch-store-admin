@@ -7,6 +7,7 @@ import { ProductService } from "../../../services/product/product.service";
 import { BC_PRODUCT } from "../../../public/constants/bread-crumb";
 import { ProductBrandModalComponent } from "../product-brand-modal/product-brand-modal.component";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
+import { AuthService } from "../../../services/auth/auth.service";
 
 @Component({
   selector: "app-product-brand",
@@ -17,16 +18,19 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
   public categories: any[] = [];
   public COLUMNS = COLUMN_OF_CATEGORIES;
   public subscription$!: Subscription;
+  public role!: string;
 
   constructor(
     public modalService: NgbModal,
     private productService: ProductService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.breadCrumbsItem = BC_PRODUCT;
     this.getListCategory();
+    this.role = this.authService.getRole();
   }
 
   public trackColumn(index: number, column: any) {

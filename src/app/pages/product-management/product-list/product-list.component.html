@@ -21,7 +21,7 @@
           <div
             class="col-sm-auto justify-content-sm-end"
             (click)="router.navigate(['/product-management/create-product'])">
-            <button class="btn btn-success add-btn">
+            <button class="btn btn-success add-btn" *ngIf="role === 'admin'">
               <i class="ri-add-line align-bottom"></i>
               <span class="fs-14 ms-2">Thêm</span>
             </button>
@@ -64,13 +64,16 @@
                     <i class="ri-more-fill"></i>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                    <li class="dropdown-item">
+                    <li
+                      class="dropdown-item"
+                      [class.not-allowed]="role === 'staff'">
                       <i class="ri-eye-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14">Chi tiết</span>
                     </li>
                     <li
                       class="dropdown-item cursor-pointer"
-                      (click)="onRouterToUpdate(data.id)">
+                      (click)="onRouterToUpdate(data.id)"
+                      [class.not-allowed]="role === 'staff'">
                       <i
                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14">Sửa</span>
@@ -78,7 +81,8 @@
                     <li class="dropdown-divider"></li>
                     <li
                       class="dropdown-item cursor-pointer"
-                      (click)="onOpenConfirmModal(data.id)">
+                      (click)="onOpenConfirmModal(data.id)"
+                      [class.not-allowed]="role === 'staff'">
                       <i
                         class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14"> Xoá</span>

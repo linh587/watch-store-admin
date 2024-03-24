@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (currentUser) {
       return true;
     } else {
-      this.router.navigate(["/auth/login"]).then();
+      this.router.navigate(["/auth/login/admin"]).then();
       return false;
     }
   }
@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     // Nếu không có token or permission sẽ chạy sang login.
     if (!hasToken) {
-      this.router.navigate(["/auth/login"]).then();
+      this.router.navigate(["/auth/login/admin"]).then();
       return false;
     }
     return true;
