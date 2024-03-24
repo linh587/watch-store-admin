@@ -19,6 +19,7 @@ import { ProductSizeComponent } from "./product-size/product-size.component";
 import { ProductSizeModalComponent } from "./product-size-modal/product-size-modal.component";
 import { ProductPriceComponent } from "./product-price/product-price.component";
 import { DirectivesModule } from "../../public/directives/directives.module";
+import { PipesModule } from "../../public/pipes/pipes.module";
 
 const routes: Routes = [
   {
@@ -73,6 +74,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgbTooltipModule,
     FormsModule,
     DirectivesModule,
+    PipesModule
   ],
   declarations: [
     CreateProductComponent,

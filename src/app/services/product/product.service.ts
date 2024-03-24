@@ -43,6 +43,17 @@ export class ProductService extends BaseHttpRequest {
     return this.httpClient.post(`${ENVIRONMENT}${API_URL.PRODUCT}`, payload);
   }
 
+  public updateProduct(id: string, payload: any) {
+    return this.httpClient.put(
+      `${ENVIRONMENT}${API_URL.PRODUCT}/${id}`,
+      payload
+    );
+  }
+
+  public deleteProduct(id: string) {
+    return this.httpClient.delete(`${ENVIRONMENT}${API_URL.PRODUCT}/${id}`);
+  }
+
   public getProductSize() {
     return this.httpClient.get(`${ENVIRONMENT}${API_URL.GET_ALL_SIZES}`);
   }

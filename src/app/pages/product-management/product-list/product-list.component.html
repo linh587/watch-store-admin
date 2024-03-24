@@ -68,13 +68,17 @@
                       <i class="ri-eye-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14">Chi tiết</span>
                     </li>
-                    <li class="dropdown-item cursor-pointer">
+                    <li
+                      class="dropdown-item cursor-pointer"
+                      (click)="onRouterToUpdate(data.id)">
                       <i
                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14">Sửa</span>
                     </li>
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item cursor-pointer">
+                    <li
+                      class="dropdown-item cursor-pointer"
+                      (click)="onOpenConfirmModal(data.id)">
                       <i
                         class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                       <span class="fs-14"> Xoá</span>

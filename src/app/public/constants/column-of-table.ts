@@ -1,5 +1,5 @@
 export const COLUMN_OF_CUSTOMERS: string[] = [
-  "Họ tên khách hàng",
+  "Họ tên",
   "Số điện thoại",
   "Email",
   "Ngày sinh",

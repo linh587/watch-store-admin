@@ -5,6 +5,7 @@ import { ProductService } from "../../../services/product/product.service";
 import { catchError, tap, throwError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { DropzoneConfigInterface } from "ngx-dropzone-wrapper";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-create-product",
@@ -31,7 +32,8 @@ export class CreateProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -39,6 +41,20 @@ export class CreateProductComponent implements OnInit {
     this.getAllCategory();
     this.getAllProductSize();
     this.getBreadCrumb();
+    this.getProductId();
+    this.patchValueToForm();
+
+    console.log(this.productId);
+  }
+
+  get controls() {
+    return this.productForm.controls;
+  }
+
+  private getProductId() {
+    this.route.params.subscribe((params) => {
+      this.productId = params["productId"];
+    });
   }
 
   private getBreadCrumb() {
@@ -80,7 +96,11 @@ export class CreateProductComponent implements OnInit {
   public onCreateProduct() {
     const formData: any = new FormData();
 
-    if (this.productForm.valid && this.priceInformationJsons.length) {
+    if (
+      !this.productId &&
+      this.productForm.valid &&
+      this.priceInformationJsons.length
+    ) {
       formData.append("name", this.productForm.get("name")?.value);
       formData.append(
         "description",
@@ -102,7 +122,7 @@ export class CreateProductComponent implements OnInit {
         .pipe(
           tap((_) => {
             this.toastService.success("Thêm sản phẩm thành công");
-            this.productForm.reset();
+            this.resetForm();
             this.priceInformationJsons = [];
             this.selectedProductSize = [];
             this.priceInput = [];
@@ -114,6 +134,22 @@ export class CreateProductComponent implements OnInit {
         )
         .subscribe();
     }
+  }
+
+  public onUpdateProduct() {}
+
+  public patchValueToForm() {
+    if (this.productId) {
+      this.productService.getDetailProduct(this.productId).subscribe((res) => {
+        console.log(res);
+      });
+    }
+  }
+
+  private resetForm() {
+    this.controls["name"].reset();
+    this.controls["description"].reset();
+    this.controls["categoryId"].reset();
   }
 
   public onHandleChecked(event: any, productSizeId: string) {

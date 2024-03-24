@@ -5,10 +5,7 @@ import { Router } from "@angular/router";
 import { BC_PRODUCT } from "../../../public/constants/bread-crumb";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
 import { ProductService } from "../../../services/product/product.service";
-import {
-  createCloudinaryThumb,
-  createCloudinaryThumbLink,
-} from "../../../public/helpers/images";
+import { createCloudinaryThumbLink } from "../../../public/helpers/images";
 
 @Component({
   selector: "app-product-list",
@@ -36,7 +33,7 @@ export class ProductListComponent implements OnInit {
     return column ? column : undefined;
   }
 
-  public onOpenConfirmModal() {
+  public onOpenConfirmModal(id: string) {
     const modalRef = this.modalService.open(ConfirmModalComponent, {
       centered: true,
     });
@@ -50,5 +47,9 @@ export class ProductListComponent implements OnInit {
     this.productService.getAllProducts().subscribe((res: any) => {
       this.products = res.data;
     });
+  }
+
+  public onRouterToUpdate(id: string) {
+    this.router.navigate([`/product-management/update-product/${id}`]).then();
   }
 }

@@ -42,7 +42,7 @@
             <td>{{ data.name }}</td>
             <td>{{ data.phone }}</td>
             <td>{{ data.email }}</td>
-            <td>{{ data.dateOfBirth | date }}</td>
+            <td>{{ data.dateOfBirth | date: "dd-MM-YYYY" }}</td>
             <td class="due_date">
               <div class="form-check form-switch">
                 <input
