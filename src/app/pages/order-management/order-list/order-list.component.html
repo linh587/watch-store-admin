@@ -64,7 +64,11 @@
         </div>
         <!--end row-->
       </div>
-      <app-table>
+      <app-table
+        [data]="orderList"
+        [pageSize]="16"
+        [limit]="16"
+        [total]="orderList.length">
         <ng-template #headers>
           <ng-container *ngFor="let column of COLUMNS">
             <th [ngStyle]="{ 'min-width.px': column }" scope="col">
@@ -73,7 +77,21 @@
           </ng-container>
         </ng-template>
         <ng-template #rows let-data let-rotateClass="rotateClass">
-          <ng-container></ng-container>
+          <ng-container>
+            <td>{{ data.createdAt | date : "dd-MM-YYYY" }}</td>
+            <td>{{ data.phone }}</td>
+            <td class="cursor-pointer" (click)="redirectOrderDetail(data.id)">
+              {{ data.receivedAddress }}
+            </td>
+            <td>{{ data.deliveryCharge | formatPrice }}</td>
+            <td>{{ data.subtotalPrice | formatPrice }}</td>
+            <td>{{ data.totalPrice | formatPrice }}</td>
+            <td
+              class="badge fs-12 text-white"
+              ngClass="bg-{{ data.status | orderStatusColor }}">
+              <span>{{ data.status | orderStatus }}</span>
+            </td>
+          </ng-container>
         </ng-template>
       </app-table>
     </div>

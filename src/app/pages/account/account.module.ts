@@ -5,15 +5,27 @@ import { SharedModule } from "../../components/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginStaffComponent } from "./login-staff/login-staff.component";
 import { LoginAdminComponent } from "./login-admin/login-admin.component";
+import { AccountComponent } from "./account.component";
 
 const routes: Routes = [
   {
-    path: "login/admin",
-    component: LoginAdminComponent,
-  },
-  {
-    path: "login/staff",
-    component: LoginStaffComponent,
+    path: "login",
+    component: AccountComponent,
+    children: [
+      {
+        path: "",
+        pathMatch: "full",
+        redirectTo: "admin",
+      },
+      {
+        path: "admin",
+        component: LoginAdminComponent,
+      },
+      {
+        path: "staff",
+        component: LoginStaffComponent,
+      },
+    ],
   },
 ];
 
@@ -25,6 +37,6 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [LoginAdminComponent, LoginStaffComponent],
+  declarations: [LoginAdminComponent, LoginStaffComponent, AccountComponent],
 })
 export class AccountModule {}

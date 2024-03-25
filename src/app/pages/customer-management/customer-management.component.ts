@@ -34,7 +34,6 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
   private getAllUser() {
     this.authService.getAllUser().subscribe((res: any) => {
       this.customers = res.data;
-      console.log(res.data);
     });
   }
 

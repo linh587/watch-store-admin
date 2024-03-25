@@ -60,24 +60,18 @@ export const MENU: MenuItem[] = [
     id: 7,
     label: "Quản lý đơn mua",
     isTitle: true,
-    role: "",
+    role: "staff",
   },
   {
     id: 8,
     label: "Quản lý đơn mua",
     icon: "ri-bill-line",
-    role: "",
+    role: "staff",
     subItems: [
       {
         id: 9,
         label: "Danh sách đơn",
         link: "/order-management/orders",
-        parentId: 8,
-      },
-      {
-        id: 10,
-        label: "Chi tiết đơn",
-        link: "/order-management/order-detail",
         parentId: 8,
       },
     ],

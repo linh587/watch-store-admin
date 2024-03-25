@@ -43,8 +43,6 @@ export class CreateProductComponent implements OnInit {
     this.getBreadCrumb();
     this.getProductId();
     this.patchValueToForm();
-
-    console.log(this.productId);
   }
 
   get controls() {

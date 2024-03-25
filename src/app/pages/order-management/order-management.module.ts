@@ -6,10 +6,16 @@ import { OrderListComponent } from "./order-list/order-list.component";
 import { OrderDetailComponent } from "./order-detail/order-detail.component";
 import { FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { PipesModule } from "../../public/pipes/pipes.module";
+import { DirectivesModule } from "../../public/directives/directives.module";
 
 const routes: Routes = [
   { path: "orders", component: OrderListComponent, pathMatch: "full" },
-  { path: "order-detail", component: OrderDetailComponent, pathMatch: "full" },
+  {
+    path: "order-detail/:id",
+    component: OrderDetailComponent,
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
@@ -19,6 +25,8 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     NgbModule,
+    PipesModule,
+    DirectivesModule,
   ],
   declarations: [OrderListComponent, OrderDetailComponent],
 })

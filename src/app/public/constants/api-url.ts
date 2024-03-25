@@ -29,4 +29,16 @@ export const API_URL = {
   //PRODUCT_PRICE
   GET_ALL_PRICES: "product-price",
   PRODUCT_PRICE: "product-price",
+
+  //ORDER
+  GET_ALL_ORDER: "staff/order",
+  ORDER: "order",
+  STAFF_ORDER: "staff/order",
+  VERIFY: "verify",
+  DELIVERY: "delivery",
+  VERIFY_RECEIVED: "verify-received",
+  CANCEL: "cancel",
+
+  // BRANCH
+  BRANCH: "branch",
 };

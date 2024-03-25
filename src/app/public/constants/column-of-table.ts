@@ -20,14 +20,13 @@ export const COLUMN_OF_CATEGORIES: string[] = [
 ];
 
 export const COLUMN_OF_ORDERS: string[] = [
-  "Date",
-  "Name",
-  "Type",
-  "Quantity",
-  "Order Value",
-  "Avg Price",
-  "Price",
-  "Status",
+  "Ngày đặt",
+  "Số điện thoại",
+  "Địa chỉ nhận",
+  "Phí vận chuyển",
+  "Tổng tiền",
+  "Thành tiền",
+  "Trạng thái",
 ];
 
 export const COLUMN_OF_SIZE: string[] = ["Số size", "Hành động"];
