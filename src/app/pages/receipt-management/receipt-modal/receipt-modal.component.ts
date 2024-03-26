@@ -31,8 +31,6 @@ export class ReceiptModalComponent implements OnInit {
     this.getListProduct();
     this.getListSupplier();
     this.getListSize();
-
-    this.productSizes$.subscribe((res) => console.log(res));
   }
 
   private initForm() {}
