@@ -26,11 +26,11 @@ const routes: Routes = [
           ),
       },
       {
-        path: "customer-management",
+        path: "user-management",
         canLoad: [AuthGuard],
         loadChildren: () =>
-          import("./pages/customer-management/customer-management.module").then(
-            (m) => m.CustomerManagementModule
+          import("./pages/user-management/user-management.module").then(
+            (m) => m.UserManagementModule
           ),
       },
       {
@@ -47,6 +47,14 @@ const routes: Routes = [
         loadChildren: () =>
           import("./pages/order-management/order-management.module").then(
             (m) => m.OrderManagementModule
+          ),
+      },
+      {
+        path: "receipt-management",
+        canLoad: [AuthGuard],
+        loadChildren: () =>
+          import("./pages/receipt-management/receipt-management.module").then(
+            (m) => m.ReceiptManagementModule
           ),
       },
     ],

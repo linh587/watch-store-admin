@@ -6,6 +6,24 @@ export const COLUMN_OF_CUSTOMERS: string[] = [
   "Hành động",
 ];
 
+export const COLUMN_OF_SUPPLIER: string[] = [
+  "Họ tên",
+  "Số điện thoại",
+  "Email",
+  "Địa chỉ",
+  "Hành động",
+];
+
+export const COLUMN_OF_RECEIPT: string[] = [
+  "Người tạo",
+  "Người giao",
+  "Ngày giao",
+  "Ghi chú",
+  "Nhà cung cấp",
+  "Tổng tiền",
+  "Hành động",
+];
+
 export const COLUMN_OF_PRODUCTS: string[] = [
   "Tên sản phẩm",
   "Hình ảnh",

@@ -1,17 +1,16 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { CustomerModalComponent } from "./customer-modal/customer-modal.component";
 import { Subscription } from "rxjs";
-import { AuthService } from "../../services/auth/auth.service";
-import { COLUMN_OF_CUSTOMERS } from "../../public/constants/column-of-table";
-import { BC_CUSTOMER } from "../../public/constants/bread-crumb";
+import { AuthService } from "../../../services/auth/auth.service";
+import { BC_CUSTOMER } from "../../../public/constants/bread-crumb";
+import { COLUMN_OF_CUSTOMERS } from "../../../public/constants/column-of-table";
+import { CustomerModalComponent } from "./customer-modal/customer-modal.component";
 
 @Component({
-  selector: "app-customer-management",
-  templateUrl: "./customer-management.component.html",
-  styleUrls: ["./customer-management.component.scss"],
+  selector: "app-customer",
+  templateUrl: "./customer.component.html"
 })
-export class CustomerManagementComponent implements OnInit, OnDestroy {
+export class CustomerComponent implements OnInit, OnDestroy {
   public breadCrumbsItem!: Array<{}>;
   public COLUMNS = COLUMN_OF_CUSTOMERS;
   public customers!: any[];

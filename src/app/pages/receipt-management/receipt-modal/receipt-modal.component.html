@@ -1,0 +1,106 @@
+<form>
+  <div class="modal-content border-0">
+    <div class="modal-header justify-content-between align-items-center pb-3">
+      <h5 class="modal-title">{{ titleHeading }}</h5>
+      <div
+        class="modal-button d-flex align-items-center cursor-pointer"
+        (click)="onCloseModal()">
+        <i class="ri-close-line fs-24"></i>
+      </div>
+    </div>
+    <div class="modal-body" style="height: 600px; overflow: auto">
+      <div class="row">
+        <div class="form-group pb-4 col-6" required>
+          <label class="form-label">Người tạo</label>
+          <input type="text" class="form-control text-size-small" />
+        </div>
+        <div class="form-group pb-4 col-6" required>
+          <label class="form-label">Người giao</label>
+          <input type="text" class="form-control text-size-small" />
+        </div>
+
+        <div class="form-group pb-4 col-6" required>
+          <label class="form-label">Nhà cung cấp</label>
+          <select class="form-control fs-14">
+            <ng-container *ngIf="suppliers$ | async as suppliers">
+              <ng-container *ngFor="let supplier of suppliers">
+                <option [value]="supplier.id">{{ supplier.name }}</option>
+              </ng-container>
+            </ng-container>
+          </select>
+        </div>
+        <div class="form-group pb-4 col-6" required>
+          <label class="form-label">Ngày giao</label>
+          <input type="date" class="form-control text-size-small" />
+        </div>
+
+        <div class="form-group pb-4">
+          <ng-container *ngIf="products$ | async as products">
+            <ng-container *ngFor="let product of products">
+              <div class="form-group py-2">
+                <div class="d-flex align-items-center">
+                  <input
+                    class="form-check me-2"
+                    type="checkbox"
+                    [checked]="selectedProduct.includes(product.id)"
+                    (change)="onHandleChecked($event, product.id)" />
+                  <label class="form-check-label">{{ product.name }}</label>
+                </div>
+                <div *ngIf="isChecked(product.id)" class="row mt-2">
+                  <div class="form-group pb-3 col-6">
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Nhập số lượng..." />
+                  </div>
+                  <div class="form-group pb-3 col-6">
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Nhập giá..." />
+                  </div>
+                  <div class="form-group pb-2 col-6">
+                    <b class="mb-1">
+                      Ngồi nghĩ mới thấy phải nhập cả size nào vào nữa, api chưa
+                      có size đâu :(</b
+                    >
+                    <select class="form-control fs-14">
+                      <ng-container
+                        *ngIf="productSizes$ | async as productSizes">
+                        <ng-container *ngFor="let productSize of productSizes">
+                          <option [value]="productSize.id">
+                            {{ productSize.name }}
+                          </option>
+                        </ng-container>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="form-group pb-2 col-6">
+                    <input
+                      type="text"
+                      class="form-control fs-14"
+                      placeholder="Nhập ghi chú..." />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div class="form-group pb-4 col-12">
+          <label class="form-label">Ghi chú</label>
+          <textarea class="form-control" rows="5"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer border-0 pt-2">
+      <div class="modal-button">
+        <button type="button" class="btn btn-danger">
+          <span>Huỷ chỉnh sửa</span>
+        </button>
+        <button type="submit" class="btn btn-success ms-2">Lưu</button>
+        <button class="btn btn-success ms-2">Sửa</button>
+      </div>
+    </div>
+  </div>
+</form>

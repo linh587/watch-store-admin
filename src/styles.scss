@@ -324,3 +324,8 @@ input:read-only {
   opacity: 0.6;
   pointer-events: none;
 }
+
+.form-group[required] label:after {
+  content: " *";
+  color: red;
+}

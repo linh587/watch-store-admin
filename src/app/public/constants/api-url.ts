@@ -41,4 +41,10 @@ export const API_URL = {
 
   // BRANCH
   BRANCH: "branch",
+
+  // SUPPLIER
+  SUPPLIER: "admin/supplier",
+
+  // GOOD RECEIPT
+  RECEIPT: "admin/good-receipt",
 };

@@ -77,13 +77,11 @@ export class ProductBrandComponent implements OnInit, OnDestroy {
     this.productService
       .deleteCategory(id)
       .pipe(
-        tap(
-          () => this.toastService.success("Xoá thành công"),
-          catchError((error) => {
-            this.toastService.error("Xoá thất bại");
-            return throwError(() => error);
-          })
-        )
+        tap(() => this.toastService.success("Xoá thành công")),
+        catchError((error) => {
+          this.toastService.error("Xoá thất bại");
+          return throwError(() => error);
+        })
       )
       .subscribe(() => this.getListCategory());
   }
